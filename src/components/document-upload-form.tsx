@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm, ControllerRenderProps, FieldValues } from "react-hook-form";
+import { useForm, ControllerRenderProps } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
