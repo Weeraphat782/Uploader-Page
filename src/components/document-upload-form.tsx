@@ -25,8 +25,25 @@ import {
 } from "@/components/ui/accordion";
 import Image from "next/image";
 
+// Sample document URLs - replace these with your actual sample document URLs
+const SAMPLE_DOCUMENTS = {
+  companyRegistration: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-company-registration.pdf",
+  companyDeclaration: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-company-declaration.pdf",
+  importPermit: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-import-permit.pdf",
+  tk10: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-tk10.pdf",
+  tk11: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-tk11.pdf",
+  tk31: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-tk31.pdf",
+  tk32: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-tk32.pdf",
+  purchaseOrder: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-purchase-order.pdf",
+  idCardCopy: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-id-card.pdf",
+  msds: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-msds.pdf",
+  commercialInvoice: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-commercial-invoice.pdf",
+  packingList: "https://dushtbccivxstisfalhr.supabase.co/storage/v1/object/public/sample-documents/sample-packing-list.pdf",
+};
+
 export function DocumentUploadForm() {
   const [isUploading, setIsUploading] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
   
   const form = useForm<DocumentUploadFormValues>({
     resolver: zodResolver(documentUploadSchema),
@@ -61,6 +78,17 @@ export function DocumentUploadForm() {
     } catch (error) {
       console.error('Upload error:', error);
       return null;
+    }
+  };
+
+  // Function to open sample document in a new tab
+  const openSampleDocument = (documentType: keyof typeof SAMPLE_DOCUMENTS) => {
+    const url = SAMPLE_DOCUMENTS[documentType];
+    if (url) {
+      // Add timestamp to prevent caching
+      const timestamp = new Date().getTime();
+      const urlWithTimestamp = `${url}?t=${timestamp}`;
+      window.open(urlWithTimestamp, '_blank');
     }
   };
 
@@ -196,9 +224,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              Company Registration*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                Company Registration*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('companyRegistration')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -233,9 +271,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              Company Declaration*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                Company Declaration*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('companyDeclaration')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -270,9 +318,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              ID Card Copy*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                ID Card Copy*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('idCardCopy')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -317,9 +375,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              Import Permit*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                Import Permit*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('importPermit')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -354,9 +422,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              TK 10*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                TK 10*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('tk10')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -391,9 +469,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              TK 11*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                TK 11*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('tk11')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -428,9 +516,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              TK 31*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                TK 31*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('tk31')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -465,9 +563,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              TK 32*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                TK 32*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('tk32')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -512,9 +620,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              Purchase Order*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                Purchase Order*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('purchaseOrder')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -549,9 +667,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              MSDS*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                MSDS*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('msds')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -586,9 +714,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              Commercial Invoice*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                Commercial Invoice*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('commercialInvoice')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
@@ -623,9 +761,19 @@ export function DocumentUploadForm() {
                         const filesArray: File[] = hasFiles ? Array.from(fileList) : [];
                         return (
                           <FormItem className={`p-3 rounded-md transition-colors ${hasFiles ? 'border border-green-200' : ''}`}>
-                            <FormLabel>
-                              Packing List*
-                            </FormLabel>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>
+                                Packing List*
+                              </FormLabel>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => openSampleDocument('packingList')}
+                              >
+                                Preview
+                              </Button>
+                            </div>
                             <FormControl>
                               <Input
                                 type="file"
