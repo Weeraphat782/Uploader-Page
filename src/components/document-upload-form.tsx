@@ -43,7 +43,6 @@ const SAMPLE_DOCUMENTS = {
 
 export function DocumentUploadForm() {
   const [isUploading, setIsUploading] = useState(false);
-  const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
   
   const form = useForm<DocumentUploadFormValues>({
     resolver: zodResolver(documentUploadSchema),
