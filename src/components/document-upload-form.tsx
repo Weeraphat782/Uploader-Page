@@ -196,7 +196,7 @@ export function DocumentUploadForm() {
               name="companyName"
               render={({ field }: { field: ControllerRenderProps<DocumentUploadFormValues, 'companyName'> }) => (
                 <FormItem>
-                  <FormLabel>Company Name*</FormLabel>
+                  <FormLabel>Company Name and Shipping Destination*</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter company name" {...field} />
                   </FormControl>
